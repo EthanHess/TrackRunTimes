@@ -8,6 +8,7 @@
 
 #import "SavedTimesViewController.h"
 #import "SavedTimesController.h"
+#import "TimeEntry.h"
 
 @interface SavedTimesViewController () <UITableViewDataSource, UITableViewDelegate>
 
@@ -26,12 +27,33 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
     
+    TimeEntry *timeEntry = [SavedTimesController sharedInstance].savedTimes[indexPath.row];
+    
+    cell.textLabel.text = timeEntry.title;
+    cell.detailTextLabel.text = timeEntry.time;
+    
     return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 5;
+    return [SavedTimesController sharedInstance].savedTimes.count;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        TimeEntry *timeEntry = [SavedTimesController sharedInstance].savedTimes[indexPath.row];
+        
+        [[SavedTimesController sharedInstance]removeTimeEntry:timeEntry];
+        
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+        
+        [self.tableView reloadData];
+        
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

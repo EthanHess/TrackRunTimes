@@ -18,4 +18,6 @@
 
 - (void)addTimeEntryWithTitle:(NSString *)title andTime:(NSString *)time;
 
+- (void)removeTimeEntry:(TimeEntry *)timeEntry; 
+
 @end

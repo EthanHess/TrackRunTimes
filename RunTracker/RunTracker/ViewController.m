@@ -98,7 +98,7 @@
 
 - (IBAction)saveTime:(id)sender {
     
-    
+    [[SavedTimesController sharedInstance]addTimeEntryWithTitle:self.textField.text andTime:self.timerLabel.text];
     
 }
 
