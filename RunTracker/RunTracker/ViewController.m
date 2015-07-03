@@ -27,8 +27,7 @@
     
     if (self) {
         
-        self.timer = [Timer sharedInstance];
-        [self registerForNotifications];
+//        [self registerForNotifications];
     }
     
     return self;
@@ -37,7 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.timer = [Timer sharedInstance];
+    [self registerForNotifications];
     self.startButton.layer.cornerRadius = self.startButton.frame.size.height / 2;
     self.startButton.layer.borderColor = [[UIColor blackColor]CGColor];
     self.startButton.layer.borderWidth = 3.0;
@@ -92,7 +92,6 @@
     self.timer.seconds = 0;
     
     [self updateTimerLabel];
-    
     
 }
 

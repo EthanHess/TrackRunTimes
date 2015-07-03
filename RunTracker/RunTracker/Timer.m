@@ -45,7 +45,7 @@
     if (self.isOn == YES) {
         [self increaseSecond];
         
-        [self performSelector:@selector(isActive) withObject:nil afterDelay:.001];
+        [self performSelector:@selector(isActive) withObject:nil afterDelay:1];
     }
     
 }
@@ -60,13 +60,18 @@
     
     if (self.seconds == 0) {
         self.seconds ++;
-        
         [[NSNotificationCenter defaultCenter]postNotificationName:secondTickNotification object:nil];
     }
-    
-    if (self.seconds == 0 && self.minutes > 0) {
+    else if (self.seconds == 60 && self.minutes >= 0) {
         self.minutes ++;
-        self.seconds = 60;
+        self.seconds = 0;
+        [[NSNotificationCenter defaultCenter]postNotificationName:secondTickNotification object:nil];
+
+    }
+    else
+    {
+        self.seconds++;
+        [[NSNotificationCenter defaultCenter]postNotificationName:secondTickNotification object:nil];
     }
     
 }
